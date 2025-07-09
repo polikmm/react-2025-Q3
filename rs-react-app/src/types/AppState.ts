@@ -1,5 +1,5 @@
+import type { CardItem } from "./CardItem";
+
 export type AppState = {
-  prevQuery: string;
-  prevFilteredData: [];
-  filteredData: [];
+  data: CardItem[];
 }

@@ -1,32 +1,41 @@
 import { Component } from 'react'
 import './App.css'
 import { SearchBar } from './components/SearchBar/SearchBar'
-import type { AppState } from './types/AppState'
+import { CardList } from './components/CardList/CardList';
+import { getData } from './api/getData';
+import type { AppState } from './types/AppState';
+import { getPokemon } from './api/getPokemon';
 
 export default class App extends Component<{}, AppState> {
   constructor(props: {}) {
-    super(props);
+    super(props)
     this.state = {
-      prevQuery: "",
-      prevFilteredData: [],
-      filteredData: []
+      data: []
     };
-
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearch(query: string) {
+  async handleSearch() {
+    const prevQuery = localStorage.getItem("query");
+    let data;
+    if (prevQuery) {
+      data = await getPokemon(prevQuery);
+      this.setState({ data: [data] });
+    } else {
+      data = await getData();
+      this.setState({ data: data });
+    }
+  }
 
-
-
-    
-    this.setState({ prevQuery: query, prevFilteredData: , filteredData: });
+  async componentDidMount() {
+    await this.handleSearch()
   }
 
   render() {
     return (
       <div>
         <SearchBar onSearch={this.handleSearch} />
+        <CardList data={this.state.data} />
       </div>
     )
   }
