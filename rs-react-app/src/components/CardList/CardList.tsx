@@ -4,7 +4,7 @@ import { Card } from "../Card/Card";
 import styles from "./styles.module.css";
 import type { CardListProp } from "../../types/CardListProp";
 
-export class CardList extends Component<CardListProp, CardListState> {
+export default class CardList extends Component<CardListProp, CardListState> {
   render() {
     return (
       <div className={styles.cardList}>

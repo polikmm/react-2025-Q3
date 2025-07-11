@@ -1,3 +1,5 @@
 export type SearchBarProps = {
-  onSearch: (query: string) => void;
+  value: string;
+  onChange: (query: string) => void;
+  onSearch: () => void;
 }
