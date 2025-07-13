@@ -18,6 +18,7 @@ export class SearchBar extends Component<SearchBarProps> {
     this.props.onSearch();
   }
 
+  
   render() {
     return (
       <>
