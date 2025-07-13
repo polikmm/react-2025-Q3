@@ -1,1 +1,1 @@
-export type CardListState = {};
+export type CardListState = object;

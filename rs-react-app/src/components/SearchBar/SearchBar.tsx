@@ -1,7 +1,7 @@
-import { Component, type ChangeEvent } from "react";
-import { InputField } from "../InputField/InputField";
-import type { SearchBarProps } from "../../types/SearchBarProps";
-import { Button } from "../Button/Button";
+import { Component, type ChangeEvent } from 'react';
+import { InputField } from '../InputField/InputField';
+import type { SearchBarProps } from '../../types/SearchBarProps';
+import { Button } from '../Button/Button';
 
 export class SearchBar extends Component<SearchBarProps> {
   constructor(props: SearchBarProps) {
