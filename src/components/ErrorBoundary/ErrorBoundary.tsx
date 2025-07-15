@@ -1,7 +1,6 @@
 import { Component, type ErrorInfo } from 'react';
 import type { ErrorBoundaryProps } from '../../types/ErrorBoundaryProps';
 import type { ErrorBoundaryState } from '../../types/ErrorBoundaryState';
-
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
@@ -21,7 +20,11 @@ export class ErrorBoundary extends Component<
 
   render() {
     if (this.state.hasError) {
-      return <h2>Oops! Something went wrong. Please try again later.</h2>;
+      return (
+        <>
+          <h2>Oops! Something went wrong. Please try again later.</h2>
+        </>
+      );
     }
 
     return this.props.children;

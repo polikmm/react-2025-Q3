@@ -2,7 +2,8 @@ export async function getPokemon(query: string) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
 
   if (!response.ok) {
-    throw new Error(`${response.status}: ${response.statusText}`);
+    console.error(`${response.status}: ${response.statusText}`);
+    throw new Error();
   }
 
   const data = await response.json();

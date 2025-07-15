@@ -6,7 +6,8 @@ export async function getData(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`${response.status}: ${response.statusText}`);
+    console.error(`${response.status}: ${response.statusText}`);
+    throw new Error();
   }
 
   const results = await response.json();
