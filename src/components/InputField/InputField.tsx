@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import type { InputFieldProps } from '../../types/InputFieldProps';
-import styles from './styles.module.css';
+import './styles.css';
 export class InputField extends Component<InputFieldProps> {
   render() {
     return (
       <input
-        className={styles.input}
+        className="input"
         type="text"
         value={this.props.value}
         onChange={this.props.onChange}
