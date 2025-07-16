@@ -6,7 +6,7 @@ import './styles.css';
 export class Card extends Component<CardItem> {
   render() {
     return (
-      <div className="card">
+      <div className="card" data-testid="card">
         <h2 className="cardTitle">{this.props.name}</h2>
         <CardMeta data={this.props} />
       </div>

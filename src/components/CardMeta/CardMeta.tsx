@@ -5,7 +5,7 @@ import './styles.css';
 export class CardMeta extends Component<CardMetaProps> {
   render() {
     return (
-      <div className="cardMeta">
+      <div className="cardMeta" data-testid="cardMeta">
         <h4 className="cardMetaH4">
           <span className="cardMetaSpan">height:</span>
           {this.props.data.height}
