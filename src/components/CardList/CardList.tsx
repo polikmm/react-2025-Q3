@@ -10,7 +10,7 @@ export default class CardList extends Component<CardListProp, CardListState> {
     return (
       <>
         <div className="cardList" data-testid="cardList">
-          {this.props.data?.length > 0 &&
+          {this.props.data.length > 0 &&
             this.props.data.map((item) => (
               <Card
                 key={item.name}

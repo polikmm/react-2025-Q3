@@ -1,21 +1,47 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { SearchBar } from './SearchBar';
+import userEvent from '@testing-library/user-event';
 
-test('Should render SearchBar', () => {
-  render(<SearchBar value={''} onChange={jest.mock} onSearch={() => {}} />);
+describe('SearchBar', () => {
+  let mockOnChange: jest.Mock;
+  let mockOnSearch: jest.Mock;
 
-  const input = screen.getByRole('textbox');
-  expect(input).toBeInTheDocument();
+  function renderSearchBar(value = '') {
+    mockOnChange = jest.fn();
+    mockOnSearch = jest.fn();
+    render(
+      <SearchBar
+        value={value}
+        onChange={mockOnChange}
+        onSearch={mockOnSearch}
+      />
+    );
+  }
 
-  const button = screen.getByRole('button');
-  expect(button).toBeInTheDocument();
-});
+  beforeEach(() => {
+    localStorage.clear();
+    renderSearchBar();
+  });
 
-test('Should show empty input in case of empty LS', () => {
-  render(<SearchBar value={''} onChange={jest.mock} onSearch={() => {}} />);
-  localStorage.clear();
+  it('should be rendered', () => {
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
 
-  const input = screen.getByPlaceholderText(/ditto/i);
-  expect(input).toHaveValue('');
+  it('should show empty input in case of empty LS', () => {
+    expect(screen.getByPlaceholderText(/ditto/i)).toHaveValue('');
+  });
+
+  it('should call onChange function when the input value changes', async () => {
+    const input = screen.getByPlaceholderText(/ditto/i);
+    await userEvent.type(input, 'te');
+    expect(mockOnChange).toHaveBeenCalled();
+  });
+
+  it('should call onSearch function when the button is clicked', async () => {
+    const button = screen.getByRole('button');
+    await userEvent.click(button);
+    expect(mockOnSearch).toHaveBeenCalled();
+  });
 });
