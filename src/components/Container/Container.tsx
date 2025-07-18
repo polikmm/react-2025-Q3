@@ -1,11 +1,11 @@
 import { Component, Suspense, lazy } from 'react';
-import { SearchBar } from '../../components/SearchBar/SearchBar';
+import { SearchBar } from '../SearchBar/SearchBar';
 import { getData } from '../../api/getData';
 import type { AppState } from '../../types/AppState';
 import { getPokemon } from '../../api/getPokemon';
 
-const LazyComponent = lazy(() => import('../../components/CardList/CardList'));
-export default class Main extends Component<object, AppState> {
+const LazyComponent = lazy(() => import('../CardList/CardList'));
+export default class Container extends Component<object, AppState> {
   constructor(props: object) {
     super(props);
     this.state = {
@@ -57,7 +57,7 @@ export default class Main extends Component<object, AppState> {
   render() {
     if (this.state.error.length > 0) throw new Error();
     return (
-      <>
+      <div data-testid="container">
         <header className="header">
           <SearchBar
             value={this.state.query}
@@ -71,7 +71,7 @@ export default class Main extends Component<object, AppState> {
             handleThrowError={() => this.setState({ error: 'test error' })}
           />
         </Suspense>
-      </>
+      </div>
     );
   }
 }
