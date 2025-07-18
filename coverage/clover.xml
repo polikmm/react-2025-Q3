@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752748931541" clover="3.2.0">
-  <project timestamp="1752748931541" name="All files">
-    <metrics statements="42" coveredstatements="42" conditionals="4" coveredconditionals="4" methods="14" coveredmethods="14" elements="60" coveredelements="60" complexity="0" loc="42" ncloc="42" packages="7" files="7" classes="7"/>
-    <package name="Button">
+<coverage generated="1752840717202" clover="3.2.0">
+  <project timestamp="1752840717203" name="All files">
+    <metrics statements="75" coveredstatements="68" conditionals="12" coveredconditionals="9" methods="26" coveredmethods="25" elements="113" coveredelements="102" complexity="0" loc="75" ncloc="75" packages="9" files="10" classes="10"/>
+    <package name="components.Button">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="Button.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/Button/Button.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="9" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="29" type="stmt"/>
       </file>
     </package>
-    <package name="Card">
+    <package name="components.Card">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="Card.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/Card/Card.tsx">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -22,7 +22,7 @@
         <line num="8" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="CardList">
+    <package name="components.CardList">
       <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="CardList.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/CardList/CardList.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
@@ -35,7 +35,7 @@
         <line num="15" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="CardMeta">
+    <package name="components.CardMeta">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="CardMeta.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/CardMeta/CardMeta.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -45,7 +45,44 @@
         <line num="7" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="ErrorBoundary">
+    <package name="components.Container">
+      <metrics statements="31" coveredstatements="24" conditionals="8" coveredconditionals="5" methods="10" coveredmethods="9"/>
+      <file name="Container.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/Container/Container.tsx">
+        <metrics statements="31" coveredstatements="24" conditionals="8" coveredconditionals="5" methods="10" coveredmethods="9"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="22" count="10" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+        <line num="31" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="51" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="58" count="20" type="cond" truecount="1" falsecount="1"/>
+        <line num="59" count="20" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ErrorBoundary">
       <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
       <file name="ErrorBoundary.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/ErrorBoundary/ErrorBoundary.tsx">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
@@ -60,30 +97,41 @@
         <line num="30" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="InputField">
+    <package name="components.InputField">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="InputField.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/InputField/InputField.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="6" count="5" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="25" type="stmt"/>
       </file>
     </package>
-    <package name="SearchBar">
+    <package name="components.SearchBar">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <file name="SearchBar.tsx" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/components/SearchBar/SearchBar.tsx">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="22" count="24" type="stmt"/>
+      </file>
+    </package>
+    <package name="test-utils">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="mockGetData.ts" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/test-utils/mockGetData.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+      </file>
+      <file name="mockGetPokemon.ts" path="/Users/Mariia/Desktop/react-2025-Q3/rs-react-app/src/test-utils/mockGetPokemon.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
       </file>
     </package>
   </project>

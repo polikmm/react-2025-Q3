@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for CardMeta/CardMeta.tsx</title>
+    <title>Code coverage report for api/getData.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">CardMeta</a> CardMeta.tsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">api</a> getData.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">15.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -83,57 +83,45 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Component } from 'react';
-import type { CardMetaProps } from '../../types/CardMetaProps';
-import './styles.css';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getPokemon } from './getPokemon';
 &nbsp;
-export class CardMeta extends Component&lt;CardMetaProps&gt; {
-  render() {
-    return (
-      &lt;div className="cardMeta" data-testid="cardMeta"&gt;
-        &lt;h4 className="cardMetaH4"&gt;
-          &lt;span className="cardMetaSpan"&gt;height:&lt;/span&gt;
-          {this.props.data.height}
-        &lt;/h4&gt;
-        &lt;h4 className="cardMetaH4"&gt;
-          &lt;span className="cardMetaSpan"&gt;weight:&lt;/span&gt;
-          {this.props.data.weight}
-        &lt;/h4&gt;
-        &lt;h4 className="cardMetaH4"&gt;
-          &lt;span className="cardMetaSpan"&gt;base experience:&lt;/span&gt;
-          {this.props.data.base_experience}
-        &lt;/h4&gt;
-      &lt;/div&gt;
-    );
+export async function <span class="fstat-no" title="function not covered" >getData(</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  url: string = <span class="branch-0 cbranch-no" title="branch not covered" >'</span>https://pokeapi.co/api/v2/pokemon/?limit=12'</span></span>
+) {
+  const response = <span class="cstat-no" title="statement not covered" >await fetch(url);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
+<span class="cstat-no" title="statement not covered" >    console.error(`${response.status}: ${response.statusText}`);</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error();</span>
   }
+&nbsp;
+  const results = <span class="cstat-no" title="statement not covered" >await response.json();</span>
+  const names = <span class="cstat-no" title="statement not covered" >results.results.map(</span>
+<span class="fstat-no" title="function not covered" >    (i</span>tem: { name: string; url: string }) =&gt; <span class="cstat-no" title="statement not covered" >item.name</span>
+  );
+  const data = <span class="cstat-no" title="statement not covered" >await Promise.all(names.map(<span class="fstat-no" title="function not covered" >(n</span>ame: string) =&gt; <span class="cstat-no" title="statement not covered" >getPokemon(name))</span>);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return data;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -142,7 +130,7 @@ export class CardMeta extends Component&lt;CardMetaProps&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-18T11:25:42.345Z
+                at 2025-07-18T09:54:38.102Z
             </div>
         <script src="../prettify.js"></script>
         <script>
