@@ -2,12 +2,10 @@ import { mockGetData } from '../../test-utils/mockGetData';
 import { mockGetPokemon } from '../../test-utils/mockGetPokemon';
 
 jest.mock('../../api/getData', () => ({
-  __esModule: true,
   getData: mockGetData,
 }));
 
 jest.mock('../../api/getPokemon', () => ({
-  __esModule: true,
   getPokemon: mockGetPokemon,
 }));
 
@@ -15,17 +13,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Container from './Container';
 import userEvent from '@testing-library/user-event';
-import type { CardListProp } from '../../types/CardListProp';
-
-jest.mock('../CardList/CardList', () => ({
-  __esModule: true,
-  default: ({ data, handleThrowError }: CardListProp) => (
-    <div data-testid="cardList">
-      CardList with {data.length} items
-      <button onClick={() => handleThrowError()}>error</button>
-    </div>
-  ),
-}));
+import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
+import * as pokemonApi from '../../api/getPokemon';
+import * as api from '../../api/getData';
 
 jest.mock('../../api/getData', () => ({
   __esModule: true,
@@ -37,7 +27,7 @@ jest.mock('../../api/getPokemon', () => ({
   getPokemon: mockGetPokemon,
 }));
 
-describe('Main should', () => {
+describe('Container should', () => {
   it('be rendered and fetches data', async () => {
     render(<Container />);
 
@@ -47,8 +37,8 @@ describe('Main should', () => {
     expect(screen.getByText('Loading...')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByTestId("cardList")).toBeInTheDocument();
-    })
+      expect(screen.getByTestId('cardList')).toBeInTheDocument();
+    });
 
     expect(mockGetData).toHaveBeenCalledTimes(1);
   });
@@ -63,7 +53,7 @@ describe('Main should', () => {
     expect(input).toHaveValue('ditto');
   });
 
-  it('calls getPokemon when search is triggered with query', async () => {
+  it('call getPokemon when search is triggered with query', async () => {
     render(<Container />);
 
     const input = screen.getByRole('textbox');
@@ -77,5 +67,60 @@ describe('Main should', () => {
     });
 
     expect(mockGetPokemon).toHaveBeenCalledWith('ditto');
+  });
+
+  it('throw and show fallback when getPokemon rejects', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest
+      .spyOn(pokemonApi, 'getPokemon')
+      .mockRejectedValue(new Error('Test error'));
+
+    localStorage.setItem('query', 'pikachu');
+
+    render(
+      <ErrorBoundary>
+        <Container />
+      </ErrorBoundary>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+  });
+
+  it('throw and show fallback when getData rejects', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(api, 'getData').mockRejectedValue(new Error('Test error'));
+
+    localStorage.setItem('query', 'pikachu');
+
+    render(
+      <ErrorBoundary>
+        <Container />
+      </ErrorBoundary>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+  });
+
+  it('throw error when click on error button', async () => {
+    render(
+      <ErrorBoundary>
+        <Container />
+      </ErrorBoundary>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId('cardList')).toBeInTheDocument();
+    });
+
+    const button = screen.getByRole('button', { name: /error/i });
+    await userEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
   });
 });

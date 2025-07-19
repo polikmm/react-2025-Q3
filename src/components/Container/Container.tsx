@@ -38,7 +38,6 @@ export default class Container extends Component<object, AppState> {
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error('Error:', error.message);
-        console.log(error);
         this.setState({ error: error.message });
       } else {
         console.error('Unknown error:', error);
