@@ -28,6 +28,16 @@ jest.mock('../../api/getPokemon', () => ({
 }));
 
 describe('Container should', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('be rendered and fetches data', async () => {
     render(<Container />);
 
@@ -106,26 +116,33 @@ describe('Container should', () => {
   });
 
   it('set error state to "Unknown error" if thrown error is not an instance of Error', async () => {
-  jest.spyOn(pokemonApi, 'getPokemon').mockRejectedValue('some unknown error');
+    jest
+      .spyOn(pokemonApi, 'getPokemon')
+      .mockRejectedValue('some unknown error');
 
-  localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', 'pikachu');
 
-  const errorConsoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const errorConsoleSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
 
-  render(
-    <ErrorBoundary>
-      <Container />
-    </ErrorBoundary>
-  );
+    render(
+      <ErrorBoundary>
+        <Container />
+      </ErrorBoundary>
+    );
 
-  await waitFor(() => {
-    expect(screen.getByTestId('error')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+
+    expect(errorConsoleSpy).toHaveBeenCalledWith(
+      'Unknown error:',
+      'some unknown error'
+    );
+
+    errorConsoleSpy.mockRestore();
   });
-
-  expect(errorConsoleSpy).toHaveBeenCalledWith('Unknown error:', 'some unknown error');
-
-  errorConsoleSpy.mockRestore();
-});
 
   it('throw error when click on error button', async () => {
     render(
