@@ -22,7 +22,9 @@ export class ErrorBoundary extends Component<
     if (this.state.hasError) {
       return (
         <>
-          <h2>Oops! Something went wrong. Please try again later.</h2>
+          <h2 data-testid="error">
+            Oops! Something went wrong. Please try again later.
+          </h2>
         </>
       );
     }
