@@ -1,76 +1,69 @@
-import { Component, Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { getData } from '../../api/getData';
-import type { AppState } from '../../types/AppState';
 import { getPokemon } from '../../api/getPokemon';
+import type { CardItem } from '../../types/CardItem';
 
 const LazyComponent = lazy(() => import('../CardList/CardList'));
-export default class Container extends Component<object, AppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      data: [],
-      prevQuery: '',
-      query: '',
-      error: '',
-    };
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
-  }
+export default function Container() {
+  const [data, setData] = useState<CardItem[]>([]);
+  const [query, setQuery] = useState('');
+  const [error, setError] = useState('');
 
-  handleQueryChange(newQuery: string) {
-    this.setState({ query: newQuery });
-  }
+  useEffect(() => {
+    const savedQuery = localStorage.getItem('query') || '';
+    setQuery(savedQuery);
+    handleSearch(savedQuery);
+  }, []);
 
-  async handleSearch() {
+  const handleQueryChange = (newQuery: string) => {
+    setQuery(newQuery);
+  };
+
+  const handleSearch = async (query: string) => {
     try {
-      const query = this.state.query.trim().toLowerCase();
-      localStorage.setItem('query', query);
+      const currentQuery = query.trim().toLowerCase();
+      localStorage.setItem('query', currentQuery);
 
-      let data;
-      if (query) {
-        data = await getPokemon(query);
-        this.setState({ data: [data], prevQuery: query });
+      if (currentQuery) {
+        const result = await getPokemon(currentQuery);
+        setData([result]);
       } else {
-        data = await getData();
-        this.setState({ data });
+        const result = await getData();
+        setData(result);
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error('Error:', error.message);
-        this.setState({ error: error.message });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Error:', err.message);
+        setError(err.message);
       } else {
-        console.error('Unknown error:', error);
-        this.setState({ error: 'Unknown error' });
+        console.error('Unknown error:', err);
+        setError('Unknown error');
       }
     }
-  }
+  };
 
-  componentDidMount() {
-    const savedQuery = localStorage.getItem('query') || '';
-    this.setState({ query: savedQuery }, async () => {
-      this.handleSearch();
-    });
-  }
+  useEffect(() => {
+    if (error) {
+      throw new Error(error);
+    }
+  }, [error]);
 
-  render() {
-    if (this.state.error.length > 0) throw new Error();
-    return (
-      <div data-testid="container">
-        <header className="header">
-          <SearchBar
-            value={this.state.query}
-            onChange={this.handleQueryChange}
-            onSearch={this.handleSearch}
-          />
-        </header>
-        <Suspense fallback={<div>Loading...</div>}>
-          <LazyComponent
-            data={this.state.data}
-            handleThrowError={() => this.setState({ error: 'test error' })}
-          />
-        </Suspense>
-      </div>
-    );
-  }
+  return (
+    <div data-testid="container">
+      <header className="header">
+        <SearchBar
+          value={query}
+          onChange={handleQueryChange}
+          onSearch={() => handleSearch(query)}
+        />
+      </header>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyComponent
+          data={data}
+          handleThrowError={() => setError('test error')}
+        />
+      </Suspense>
+    </div>
+  );
 }
