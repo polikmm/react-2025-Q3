@@ -2,8 +2,14 @@ import { Card } from '../Card/Card';
 import './styles.css';
 import type { CardListProp } from '../../types/CardListProp';
 import { Button } from '../Button/Button';
+import { Pagination } from '../Pagination/Pagination';
 
-export default function CardList({ data, handleThrowError }: CardListProp) {
+export default function CardList({
+  data,
+  handleThrowError,
+  onSearch,
+  page,
+}: CardListProp) {
   return (
     <>
       <div className="cardList" data-testid="cardList">
@@ -19,6 +25,7 @@ export default function CardList({ data, handleThrowError }: CardListProp) {
           ))}
       </div>
       <Button onClick={handleThrowError} text="error" />
+      <Pagination onSearch={onSearch} page={page} />
     </>
   );
 }

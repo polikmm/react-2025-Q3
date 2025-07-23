@@ -1,8 +1,9 @@
 import { getPokemon } from './getPokemon';
 
-export async function getData(
-  url: string = 'https://pokeapi.co/api/v2/pokemon/?limit=12'
-) {
+export async function getData(page: number) {
+  const limit = 8;
+  const offset = (page - 1) * limit;
+  const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
   const response = await fetch(url);
 
   if (!response.ok) {
