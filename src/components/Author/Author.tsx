@@ -2,6 +2,7 @@ import './styles.css';
 import profile from '../../assets/avatar.jpeg';
 import githubLogo from '../../assets/github-logo.svg';
 import rssLogo from '../../assets/rs_school_js.svg';
+import { Link } from 'react-router-dom';
 
 export default function Author() {
   return (
@@ -22,6 +23,9 @@ export default function Author() {
               </li>
               <li className="nav-list__item">
                 <a href="#english">English</a>
+              </li>
+              <li className="nav-list__item">
+                <Link to="/">Back</Link>
               </li>
             </ul>
           </nav>
