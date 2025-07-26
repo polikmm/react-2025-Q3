@@ -4,7 +4,13 @@ import { Card } from './Card';
 
 test('Should render CardList with data', async () => {
   render(
-    <Card name="polikmm" base_experience="junior" height="166" weight="56" />
+    <Card
+      id="id"
+      name="polikmm"
+      base_experience="junior"
+      height="166"
+      weight="56"
+    />
   );
 
   const card = screen.getByTestId('card');

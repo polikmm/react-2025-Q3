@@ -7,6 +7,7 @@ describe('CardMeta should', () => {
     render(
       <CardMeta
         data={{
+          id: '',
           name: '',
           base_experience: '',
           height: '',
@@ -24,6 +25,7 @@ describe('CardMeta should', () => {
     render(
       <CardMeta
         data={{
+          id: 'id',
           name: 'polikmm',
           base_experience: 'junior',
           height: '166',

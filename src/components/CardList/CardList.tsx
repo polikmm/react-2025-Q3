@@ -13,7 +13,7 @@ export default function CardList({
   return (
     <>
       <div className="cardList" data-testid="cardList">
-        {data.length > 0 &&
+        {data.length > 0 ? (
           data.map((item) => (
             <Card
               id={item.id}
@@ -23,7 +23,10 @@ export default function CardList({
               height={item.height}
               weight={item.weight}
             />
-          ))}
+          ))
+        ) : (
+          <h3 className="warning">No matching results!</h3>
+        )}
       </div>
       <Button
         className="error-button"

@@ -40,6 +40,7 @@ test('Should render Cards if data exists', () => {
     <CardList
       data={[
         {
+          id: '',
           name: 'test',
           base_experience: 'test',
           height: 'test',
