@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.container {
+.main {
   display: grid;
   grid-template-areas: 'leftSide rightSide';
   column-gap: 50px;
@@ -27,7 +27,7 @@
   top: 15dvh;
 }
 
-.author {
+.author-button {
   position: absolute;
   top: 5dvh;
   left: 5dvw;

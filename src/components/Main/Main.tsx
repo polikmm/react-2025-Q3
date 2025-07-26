@@ -8,7 +8,7 @@ import { Button } from '../Button/Button';
 import './style.css';
 
 const LazyComponent = lazy(() => import('../CardList/CardList'));
-export default function Container() {
+export default function Main() {
   const [data, setData] = useState<CardItem[]>([]);
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
@@ -63,7 +63,7 @@ export default function Container() {
   }, [error]);
 
   return (
-    <div className="container" data-testid="container">
+    <div className="main" data-testid="main">
       <div className="leftSide">
         <header className="header">
           <SearchBar
@@ -114,7 +114,7 @@ export default function Container() {
         </div>
       )}
       <Button
-        className="author"
+        className="author-button"
         onClick={() => navigate('/about')}
         text="about author"
       />

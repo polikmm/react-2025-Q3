@@ -1,5 +1,5 @@
 import './App.css';
-import Container from './components/Container/Container';
+import Main from './components/Main/Main';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Author from './components/Author/Author';
 import Details from './components/Details/Details';
@@ -9,7 +9,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/page/1" replace />} />
-        <Route path="page/:page" element={<Container />}>
+        <Route path="page/:page" element={<Main />}>
           <Route index element={<div />} />
           <Route path="details/:id" element={<Details />} />
         </Route>

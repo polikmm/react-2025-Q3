@@ -11,7 +11,7 @@ jest.mock('../../api/getPokemon', () => ({
 
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Container from './Container';
+import Main from './Main';
 import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import * as pokemonApi from '../../api/getPokemon';
@@ -27,7 +27,7 @@ jest.mock('../../api/getPokemon', () => ({
   getPokemon: mockGetPokemon,
 }));
 
-describe('Container should', () => {
+describe('Main should', () => {
   let consoleErrorSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -39,11 +39,11 @@ describe('Container should', () => {
   });
 
   it('be rendered and fetches data', async () => {
-    render(<Container />);
+    render(<Main />);
 
-    const container = screen.getByTestId('container');
+    const main = screen.getByTestId('Main');
 
-    expect(container).toBeInTheDocument();
+    expect(main).toBeInTheDocument();
     expect(screen.getByText('Loading...')).toBeInTheDocument();
 
     await waitFor(() => {
@@ -54,7 +54,7 @@ describe('Container should', () => {
   });
 
   it('update query on input change', async () => {
-    render(<Container />);
+    render(<Main />);
 
     const input = screen.getByRole('textbox');
 
@@ -64,7 +64,7 @@ describe('Container should', () => {
   });
 
   it('call getPokemon when search is triggered with query', async () => {
-    render(<Container />);
+    render(<Main />);
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: /search/i });
@@ -89,7 +89,7 @@ describe('Container should', () => {
 
     render(
       <ErrorBoundary>
-        <Container />
+        <Main />
       </ErrorBoundary>
     );
 
@@ -106,7 +106,7 @@ describe('Container should', () => {
 
     render(
       <ErrorBoundary>
-        <Container />
+        <Main />
       </ErrorBoundary>
     );
 
@@ -128,7 +128,7 @@ describe('Container should', () => {
 
     render(
       <ErrorBoundary>
-        <Container />
+        <Main />
       </ErrorBoundary>
     );
 
@@ -147,7 +147,7 @@ describe('Container should', () => {
   it('throw error when click on error button', async () => {
     render(
       <ErrorBoundary>
-        <Container />
+        <Main />
       </ErrorBoundary>
     );
 
