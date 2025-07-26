@@ -3,7 +3,7 @@ import { SearchBar } from '../SearchBar/SearchBar';
 import { getData } from '../../api/getData';
 import { getPokemon } from '../../api/getPokemon';
 import type { CardItem } from '../../types/CardItem';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams, useMatch } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import './style.css';
 
@@ -16,6 +16,7 @@ export default function Container() {
   const [currentPage, setCurrentPage] = useState(parseInt(page || '1', 10));
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const detailsMatch = useMatch('/page/:page/details/:id');
 
   useEffect(() => {
     const savedQuery = localStorage.getItem('query') || '';
@@ -62,49 +63,61 @@ export default function Container() {
   }, [error]);
 
   return (
-    <div data-testid="container">
-      <header className="header">
-        <SearchBar
-          value={query}
-          onChange={handleQueryChange}
-          onSearch={() => handleSearch(query)}
-        />
-      </header>
-      {isLoading ? (
-        <div
-          style={{
-            minHeight: '700px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          Loading...
-        </div>
-      ) : (
-        <Suspense
-          fallback={
-            <div
-              style={{
-                minHeight: '700px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              Loading...
-            </div>
-          }
-        >
-          <LazyComponent
-            data={data}
-            handleThrowError={() => setError('test error')}
-            onSearch={handleSearch}
-            page={currentPage}
+    <div className="container" data-testid="container">
+      <div className="leftSide">
+        <header className="header">
+          <SearchBar
+            value={query}
+            onChange={handleQueryChange}
+            onSearch={() => handleSearch(query)}
           />
-        </Suspense>
+        </header>
+
+        {isLoading ? (
+          <div
+            style={{
+              minHeight: '700px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            Loading...
+          </div>
+        ) : (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  minHeight: '700px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                Loading...
+              </div>
+            }
+          >
+            <LazyComponent
+              data={data}
+              handleThrowError={() => setError('test error')}
+              onSearch={handleSearch}
+              page={currentPage}
+            />
+          </Suspense>
+        )}
+      </div>
+      {detailsMatch && (
+        <div className="rightSide">
+          <Outlet />
+        </div>
       )}
-      <Button onClick={() => navigate('/about')} text="about author" />
+      <Button
+        className="author"
+        onClick={() => navigate('/about')}
+        text="about author"
+      />
     </div>
   );
 }

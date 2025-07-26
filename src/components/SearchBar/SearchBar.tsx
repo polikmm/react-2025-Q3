@@ -13,7 +13,7 @@ export function SearchBar({ value, onChange, onSearch }: SearchBarProps) {
         }
         placeholder="ditto"
       />
-      <Button onClick={onSearch} text="search" />
+      <Button className="search" onClick={onSearch} text="search" />
     </>
   );
 }

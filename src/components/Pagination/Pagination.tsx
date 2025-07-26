@@ -16,9 +16,17 @@ export function Pagination({ onSearch, page }: PaginationProps) {
   };
   return (
     <div className="pagination">
-      <Button onClick={handlePrevSearch} text="&larr;" />
+      <Button
+        className="pagination_arrow"
+        onClick={handlePrevSearch}
+        text="&larr;"
+      />
       <span>page {page}</span>
-      <Button onClick={handleNextSearch} text="&rarr;" />
+      <Button
+        className="pagination_arrow"
+        onClick={handleNextSearch}
+        text="&rarr;"
+      />
     </div>
   );
 }

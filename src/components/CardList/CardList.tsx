@@ -16,6 +16,7 @@ export default function CardList({
         {data.length > 0 &&
           data.map((item) => (
             <Card
+              id={item.id}
               key={item.name}
               name={item.name}
               base_experience={item.base_experience}
@@ -24,7 +25,11 @@ export default function CardList({
             />
           ))}
       </div>
-      <Button onClick={handleThrowError} text="error" />
+      <Button
+        className="error-button"
+        onClick={handleThrowError}
+        text="error"
+      />
       <Pagination onSearch={onSearch} page={page} />
     </>
   );
