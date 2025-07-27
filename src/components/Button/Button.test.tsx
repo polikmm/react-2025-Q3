@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { Button } from './Button';
 
 test('Should render ButtonList', async () => {
-  render(<Button onClick={() => {}} text="" />);
+  render(<Button className="" onClick={() => {}} text="" />);
 
   const button = screen.getByRole('button');
 

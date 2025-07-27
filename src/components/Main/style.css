@@ -1,0 +1,34 @@
+.loader {
+  min-height: 517px;
+  margin: 0 auto;
+}
+
+.main {
+  display: grid;
+  grid-template-areas: 'leftSide rightSide';
+  column-gap: 50px;
+  justify-items: center;
+  align-items: start;
+}
+
+.leftSide {
+  grid-area: leftSide;
+}
+
+.rightSide {
+  grid-area: rightSide;
+  background-color: #ffffff46;
+  width: fit-content;
+  padding: 20px 50px;
+  height: fit-content;
+  border-radius: 10px;
+  border-left: 10px solid #ff3fb9;
+  position: sticky;
+  top: 15dvh;
+}
+
+.author-button {
+  position: absolute;
+  top: 5dvh;
+  left: 5dvw;
+}

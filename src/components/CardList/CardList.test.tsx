@@ -2,9 +2,19 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CardList from './CardList';
 import { userEvent } from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 
 test('Should render CardList', () => {
-  render(<CardList data={[]} handleThrowError={() => {}} />);
+  render(
+    <MemoryRouter>
+      <CardList
+        data={[]}
+        handleThrowError={() => {}}
+        onSearch={() => {}}
+        page={1}
+      />
+    </MemoryRouter>
+  );
 
   const cardList = screen.getByTestId('cardList');
 
@@ -12,7 +22,16 @@ test('Should render CardList', () => {
 });
 
 test('Should not render Cards if data does not exist', () => {
-  render(<CardList data={[]} handleThrowError={() => {}} />);
+  render(
+    <MemoryRouter>
+      <CardList
+        data={[]}
+        handleThrowError={() => {}}
+        onSearch={() => {}}
+        page={1}
+      />
+    </MemoryRouter>
+  );
 
   const cardList = screen.getByTestId('cardList');
   const card = screen.queryByTestId('card');
@@ -23,17 +42,22 @@ test('Should not render Cards if data does not exist', () => {
 
 test('Should render Cards if data exists', () => {
   render(
-    <CardList
-      data={[
-        {
-          name: 'test',
-          base_experience: 'test',
-          height: 'test',
-          weight: 'test',
-        },
-      ]}
-      handleThrowError={() => {}}
-    />
+    <MemoryRouter>
+      <CardList
+        data={[
+          {
+            id: '',
+            name: 'test',
+            base_experience: 'test',
+            height: 'test',
+            weight: 'test',
+          },
+        ]}
+        handleThrowError={() => {}}
+        onSearch={() => {}}
+        page={1}
+      />
+    </MemoryRouter>
   );
 
   const cardList = screen.getByTestId('cardList');
@@ -46,9 +70,18 @@ test('Should render Cards if data exists', () => {
 test('Should call onClick function when click on test-error-button', async () => {
   const mockThrowError = jest.fn();
 
-  render(<CardList data={[]} handleThrowError={mockThrowError} />);
+  render(
+    <MemoryRouter>
+      <CardList
+        data={[]}
+        handleThrowError={mockThrowError}
+        onSearch={() => {}}
+        page={1}
+      />
+    </MemoryRouter>
+  );
 
-  const button = screen.getByRole('button');
+  const button = screen.getByRole('button', { name: /error/i });
 
   await userEvent.click(button);
 

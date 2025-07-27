@@ -1,5 +1,6 @@
 import { mockGetData } from '../../test-utils/mockGetData';
 import { mockGetPokemon } from '../../test-utils/mockGetPokemon';
+import * as router from 'react-router';
 
 jest.mock('../../api/getData', () => ({
   getData: mockGetData,
@@ -11,11 +12,12 @@ jest.mock('../../api/getPokemon', () => ({
 
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Container from './Container';
+import Main from './Main';
 import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import * as pokemonApi from '../../api/getPokemon';
 import * as api from '../../api/getData';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../../api/getData', () => ({
   __esModule: true,
@@ -27,10 +29,12 @@ jest.mock('../../api/getPokemon', () => ({
   getPokemon: mockGetPokemon,
 }));
 
-describe('Container should', () => {
+describe('Main should', () => {
   let consoleErrorSpy: jest.SpyInstance;
 
   beforeEach(() => {
+    localStorage.clear();
+    jest.restoreAllMocks();
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
@@ -39,11 +43,15 @@ describe('Container should', () => {
   });
 
   it('be rendered and fetches data', async () => {
-    render(<Container />);
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
 
-    const container = screen.getByTestId('container');
+    const main = screen.getByTestId('main');
 
-    expect(container).toBeInTheDocument();
+    expect(main).toBeInTheDocument();
     expect(screen.getByText('Loading...')).toBeInTheDocument();
 
     await waitFor(() => {
@@ -54,7 +62,11 @@ describe('Container should', () => {
   });
 
   it('update query on input change', async () => {
-    render(<Container />);
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
 
     const input = screen.getByRole('textbox');
 
@@ -64,7 +76,11 @@ describe('Container should', () => {
   });
 
   it('call getPokemon when search is triggered with query', async () => {
-    render(<Container />);
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: /search/i });
@@ -78,19 +94,40 @@ describe('Container should', () => {
 
     expect(mockGetPokemon).toHaveBeenCalledWith('ditto');
   });
+  it('throw error when click on error button', async () => {
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
 
+    await waitFor(() => {
+      expect(screen.getByTestId('cardList')).toBeInTheDocument();
+    });
+
+    const button = screen.getByRole('button', { name: /error/i });
+    await userEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+  });
   it('throw and show fallback when getPokemon rejects', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
     jest
       .spyOn(pokemonApi, 'getPokemon')
       .mockRejectedValue(new Error('Test error'));
 
-    localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', JSON.stringify('pikachu'));
 
     render(
-      <ErrorBoundary>
-        <Container />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -102,12 +139,14 @@ describe('Container should', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
     jest.spyOn(api, 'getData').mockRejectedValue(new Error('Test error'));
 
-    localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', JSON.stringify('pikachu'));
 
     render(
-      <ErrorBoundary>
-        <Container />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -120,16 +159,18 @@ describe('Container should', () => {
       .spyOn(pokemonApi, 'getPokemon')
       .mockRejectedValue('some unknown error');
 
-    localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', JSON.stringify('pikachu'));
 
     const errorConsoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
     render(
-      <ErrorBoundary>
-        <Container />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -144,22 +185,58 @@ describe('Container should', () => {
     errorConsoleSpy.mockRestore();
   });
 
-  it('throw error when click on error button', async () => {
+  it('call onClick function when click on author button', async () => {
+    const navigate = jest.fn();
+    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+
     render(
-      <ErrorBoundary>
-        <Container />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('cardList')).toBeInTheDocument();
-    });
+    const button = screen.getByRole('button', { name: /author/i });
 
-    const button = screen.getByRole('button', { name: /error/i });
     await userEvent.click(button);
 
-    await waitFor(() => {
-      expect(screen.getByTestId('error')).toBeInTheDocument();
-    });
+    expect(navigate).toHaveBeenCalledWith('/about');
+  });
+
+  it('render right side when useMatch returns match', () => {
+    const match = jest.fn().mockReturnValue({});
+    const navigate = jest.fn();
+    jest.spyOn(router, 'useNavigate').mockImplementation(navigate);
+    jest.spyOn(router, 'useMatch').mockImplementation(match);
+
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
+
+    const rightSide = screen.getByTestId('rightSide');
+    expect(rightSide).toBeInTheDocument();
+  });
+
+  it('not render right side when useMatch returns match', () => {
+    const match = jest.fn().mockReturnValue(null);
+    const navigate = jest.fn();
+    jest.spyOn(router, 'useNavigate').mockImplementation(navigate);
+    jest.spyOn(router, 'useMatch').mockImplementation(match);
+
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
+
+    const rightSide = screen.queryByTestId('rightSide');
+    expect(rightSide).not.toBeInTheDocument();
   });
 });

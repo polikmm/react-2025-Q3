@@ -1,0 +1,29 @@
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.details div {
+  padding: 0 10px;
+}
+
+.details > *:not(:first-child) {
+  border-left: 1px solid #ff3fb9;
+  text-align: left;
+}
+
+ul {
+  text-align: left;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  text-align: center;
+}
