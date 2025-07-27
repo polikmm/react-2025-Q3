@@ -32,6 +32,8 @@ describe('Main should', () => {
   let consoleErrorSpy: jest.SpyInstance;
 
   beforeEach(() => {
+    localStorage.clear();
+    jest.restoreAllMocks();
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
@@ -117,7 +119,7 @@ describe('Main should', () => {
       .spyOn(pokemonApi, 'getPokemon')
       .mockRejectedValue(new Error('Test error'));
 
-    localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', JSON.stringify('pikachu'));
 
     render(
       <MemoryRouter>
@@ -136,7 +138,7 @@ describe('Main should', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
     jest.spyOn(api, 'getData').mockRejectedValue(new Error('Test error'));
 
-    localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', JSON.stringify('pikachu'));
 
     render(
       <MemoryRouter>
@@ -156,7 +158,7 @@ describe('Main should', () => {
       .spyOn(pokemonApi, 'getPokemon')
       .mockRejectedValue('some unknown error');
 
-    localStorage.setItem('query', 'pikachu');
+    localStorage.setItem('query', JSON.stringify('pikachu'));
 
     const errorConsoleSpy = jest
       .spyOn(console, 'error')

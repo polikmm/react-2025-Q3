@@ -5,6 +5,7 @@ import { getPokemon } from '../../api/getPokemon';
 import type { CardItem } from '../../types/CardItem';
 import { Outlet, useNavigate, useParams, useMatch } from 'react-router-dom';
 import { Button } from '../Button/Button';
+import { useLS } from '../../customHooks/useLS';
 import './style.css';
 
 const LazyComponent = lazy(() => import('../CardList/CardList'));
@@ -17,9 +18,10 @@ export default function Main() {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const detailsMatch = useMatch('/page/:page/details/:id');
+  const [storedValue, setStoredValue] = useLS('query', '');
 
   useEffect(() => {
-    const savedQuery = localStorage.getItem('query') || '';
+    const savedQuery = storedValue || '';
     setQuery(savedQuery);
     handleSearch(savedQuery, currentPage);
   }, []);
@@ -33,7 +35,7 @@ export default function Main() {
 
     try {
       const currentQuery = query.trim().toLowerCase();
-      localStorage.setItem('query', currentQuery);
+      setStoredValue(currentQuery);
 
       if (currentQuery) {
         const result = await getPokemon(currentQuery);
