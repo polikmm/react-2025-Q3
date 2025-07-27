@@ -16,6 +16,7 @@ import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import * as pokemonApi from '../../api/getPokemon';
 import * as api from '../../api/getData';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../../api/getData', () => ({
   __esModule: true,
@@ -39,9 +40,13 @@ describe('Main should', () => {
   });
 
   it('be rendered and fetches data', async () => {
-    render(<Main />);
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
 
-    const main = screen.getByTestId('Main');
+    const main = screen.getByTestId('main');
 
     expect(main).toBeInTheDocument();
     expect(screen.getByText('Loading...')).toBeInTheDocument();
@@ -54,7 +59,11 @@ describe('Main should', () => {
   });
 
   it('update query on input change', async () => {
-    render(<Main />);
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
 
     const input = screen.getByRole('textbox');
 
@@ -64,7 +73,11 @@ describe('Main should', () => {
   });
 
   it('call getPokemon when search is triggered with query', async () => {
-    render(<Main />);
+    render(
+      <MemoryRouter>
+        <Main />
+      </MemoryRouter>
+    );
 
     const input = screen.getByRole('textbox');
     const button = screen.getByRole('button', { name: /search/i });
@@ -78,7 +91,26 @@ describe('Main should', () => {
 
     expect(mockGetPokemon).toHaveBeenCalledWith('ditto');
   });
+  it('throw error when click on error button', async () => {
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
 
+    await waitFor(() => {
+      expect(screen.getByTestId('cardList')).toBeInTheDocument();
+    });
+
+    const button = screen.getByRole('button', { name: /error/i });
+    await userEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
+    });
+  });
   it('throw and show fallback when getPokemon rejects', async () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
     jest
@@ -88,9 +120,11 @@ describe('Main should', () => {
     localStorage.setItem('query', 'pikachu');
 
     render(
-      <ErrorBoundary>
-        <Main />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -105,9 +139,11 @@ describe('Main should', () => {
     localStorage.setItem('query', 'pikachu');
 
     render(
-      <ErrorBoundary>
-        <Main />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -127,9 +163,11 @@ describe('Main should', () => {
       .mockImplementation(() => {});
 
     render(
-      <ErrorBoundary>
-        <Main />
-      </ErrorBoundary>
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -142,24 +180,5 @@ describe('Main should', () => {
     );
 
     errorConsoleSpy.mockRestore();
-  });
-
-  it('throw error when click on error button', async () => {
-    render(
-      <ErrorBoundary>
-        <Main />
-      </ErrorBoundary>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByTestId('cardList')).toBeInTheDocument();
-    });
-
-    const button = screen.getByRole('button', { name: /error/i });
-    await userEvent.click(button);
-
-    await waitFor(() => {
-      expect(screen.getByTestId('error')).toBeInTheDocument();
-    });
   });
 });

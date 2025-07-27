@@ -14,9 +14,11 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "fast-text-encoding": "^1.0.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.7.0"
+    "react-router-dom": "^7.7.0",
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.1",
@@ -31,6 +33,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-router-dom": "^5.3.3",
+    "@types/text-encoding": "^0.0.40",
     "@vitejs/plugin-react": "^4.5.2",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
