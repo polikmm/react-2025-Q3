@@ -6,7 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 export function Card({ id, name, base_experience, height, weight }: CardItem) {
   const navigate = useNavigate();
   const { page } = useParams();
-  const handleClick = (id: string) => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
+    event?.stopPropagation();
     navigate(`/page/${page}/details/${id}`);
   };
   return (
@@ -14,7 +15,7 @@ export function Card({ id, name, base_experience, height, weight }: CardItem) {
       className="card"
       data-testid="card"
       id={id}
-      onClick={() => handleClick(id)}
+      onClick={(e) => handleClick(e, id)}
     >
       <h2 className="cardTitle">{name}</h2>
       <CardMeta data={{ id, name, base_experience, height, weight }} />

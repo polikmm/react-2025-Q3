@@ -65,7 +65,11 @@ export default function Main() {
   }, [error]);
 
   return (
-    <div className="main" data-testid="main">
+    <div
+      className="main"
+      data-testid="main"
+      onClick={() => navigate(`/page/${page}`)}
+    >
       <div className="leftSide">
         <header className="header">
           <SearchBar
