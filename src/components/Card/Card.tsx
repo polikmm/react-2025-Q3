@@ -7,7 +7,7 @@ export function Card({ id, name, base_experience, height, weight }: CardItem) {
   const navigate = useNavigate();
   const { page } = useParams();
   const handleClick = (event: React.MouseEvent<HTMLDivElement>, id: string) => {
-    event?.stopPropagation();
+    event.stopPropagation();
     navigate(`/page/${page}/details/${id}`);
   };
   return (

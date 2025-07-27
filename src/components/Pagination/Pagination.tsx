@@ -15,7 +15,7 @@ export function Pagination({ onSearch, page }: PaginationProps) {
     navigate(`/page/${page + 1}`);
   };
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid="pagination">
       <Button
         className="pagination_arrow"
         onClick={handlePrevSearch}

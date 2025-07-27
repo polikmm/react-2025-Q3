@@ -1,5 +1,6 @@
 import { mockGetData } from '../../test-utils/mockGetData';
 import { mockGetPokemon } from '../../test-utils/mockGetPokemon';
+import * as router from 'react-router';
 
 jest.mock('../../api/getData', () => ({
   getData: mockGetData,
@@ -182,5 +183,60 @@ describe('Main should', () => {
     );
 
     errorConsoleSpy.mockRestore();
+  });
+
+  it('call onClick function when click on author button', async () => {
+    const navigate = jest.fn();
+    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
+
+    const button = screen.getByRole('button', { name: /author/i });
+
+    await userEvent.click(button);
+
+    expect(navigate).toHaveBeenCalledWith('/about');
+  });
+
+  it('render right side when useMatch returns match', () => {
+    const match = jest.fn().mockReturnValue({});
+    const navigate = jest.fn();
+    jest.spyOn(router, 'useNavigate').mockImplementation(navigate);
+    jest.spyOn(router, 'useMatch').mockImplementation(match);
+
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
+
+    const rightSide = screen.getByTestId('rightSide');
+    expect(rightSide).toBeInTheDocument();
+  });
+
+  it('not render right side when useMatch returns match', () => {
+    const match = jest.fn().mockReturnValue(null);
+    const navigate = jest.fn();
+    jest.spyOn(router, 'useNavigate').mockImplementation(navigate);
+    jest.spyOn(router, 'useMatch').mockImplementation(match);
+
+    render(
+      <MemoryRouter>
+        <ErrorBoundary>
+          <Main />
+        </ErrorBoundary>
+      </MemoryRouter>
+    );
+
+    const rightSide = screen.queryByTestId('rightSide');
+    expect(rightSide).not.toBeInTheDocument();
   });
 });

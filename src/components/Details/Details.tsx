@@ -17,6 +17,7 @@ export default function Details() {
   };
   useEffect(() => {
     if (id) {
+      setLoading(true);
       getPokemon(id)
         .then(setData)
         .finally(() => setLoading(false));
@@ -26,7 +27,7 @@ export default function Details() {
   if (isLoading) return <div className="p-4">Loading details...</div>;
   if (!data) return <div className="p-4">Not found</div>;
   return (
-    <div className="details">
+    <div className="details" data-testid="details">
       <div>
         <h2>{data.name}</h2>
         {data.image && (

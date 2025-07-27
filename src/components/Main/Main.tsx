@@ -115,7 +115,7 @@ export default function Main() {
         )}
       </div>
       {detailsMatch && (
-        <div className="rightSide">
+        <div className="rightSide" data-testid="rightSide">
           <Outlet />
         </div>
       )}
