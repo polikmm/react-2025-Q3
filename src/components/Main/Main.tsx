@@ -4,7 +4,6 @@ import { getData } from '../../api/getData';
 import { getPokemon } from '../../api/getPokemon';
 import type { CardItem } from '../../types/CardItem';
 import { Outlet, useNavigate, useParams, useMatch } from 'react-router-dom';
-import { Button } from '../Button/Button';
 import { useLS } from '../../customHooks/useLS';
 import './style.css';
 
@@ -64,6 +63,10 @@ export default function Main() {
     }
   }, [error]);
 
+  const handleAuthorInfo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    navigate('/about');
+  };
   return (
     <div
       className="main"
@@ -119,11 +122,9 @@ export default function Main() {
           <Outlet />
         </div>
       )}
-      <Button
-        className="author-button"
-        onClick={() => navigate('/about')}
-        text="about author"
-      />
+      <button className="author-button" onClick={(e) => handleAuthorInfo(e)}>
+        about author
+      </button>
     </div>
   );
 }
